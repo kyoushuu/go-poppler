@@ -1,4 +1,4 @@
-module github.com/johbar/go-poppler
+module github.com/kyoushuu/go-poppler
 
 go 1.18
 
