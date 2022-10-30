@@ -17,7 +17,7 @@ import (
 
 type poppDoc *C.struct__PopplerDocument
 
-func Open(filename string) (doc *Document, err error) {
+func Open(filename, password string) (doc *Document, err error) {
 	filename, err = filepath.Abs(filename)
 	if err != nil {
 		return
@@ -25,7 +25,7 @@ func Open(filename string) (doc *Document, err error) {
 	var e *C.GError
 	fn := C.g_filename_to_uri((*C.gchar)(C.CString(filename)), nil, nil)
 	var d poppDoc
-	d = C.poppler_document_new_from_file((*C.char)(fn), nil, &e)
+	d = C.poppler_document_new_from_file((*C.char)(fn), C.CString(password), &e)
 	if e != nil {
 		err = errors.New(C.GoString((*C.char)(e.message)))
 	}
